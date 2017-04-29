@@ -1,0 +1,9 @@
+---
+applications:
+- name: spaceapp-i-said
+  memory: 128M
+  buildpack: php_buildpack
+  env:
+    CF_STAGING_TIMEOUT: 15
+    CF_STARTUP_TIMEOUT: 15
+
