@@ -1,18 +1,13 @@
 <?php
 ini_set('mbstring.internal_encoding' , 'UTF-8');
 
-// $i=0;
-// while (($line = fgetcsv($fp)) !== FALSE) {
-//     $line = mb_convert_encoding($line,"utf-8","sjis");
-//     echo $line[0];
-// }
-//
-// fclose($fp);
-//$sql = '';
-//exec()
-setlocale(LC_ALL, 'ja_JP.UTF-8');
-$file_name = 'world';
+$file_name = 'world-all';
 $file = $file_name . ".tsv";
+$sql_file = "sql_file-all.sql";
+
+
+
+setlocale(LC_ALL, 'ja_JP.UTF-8');
 $data = file_get_contents($file);
 $data = mb_convert_encoding($data, 'UTF-8', 'sjis-win');
 
@@ -43,7 +38,6 @@ while (($data = fgetcsv($temp, 0, "\t")) !== FALSE) {
   $sql .= insert($name, $desc, $lat, $lng, $image_url);
 }
 //ファイルを作成
-$sql_file = "sql_file.sql";
 $fp = fopen($sql_file, "w");
 
 $sql = mb_convert_encoding($sql, "SJIS", "AUTO");
