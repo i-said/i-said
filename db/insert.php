@@ -1,9 +1,9 @@
 <?php
 ini_set('mbstring.internal_encoding' , 'UTF-8');
 
-$file_name = 'world-all';
+$file_name = 'nasadata';
 $file = $file_name . ".tsv";
-$sql_file = "sql_file-all.sql";
+$sql_file = "sql_file-nasa.sql";
 
 
 
@@ -20,9 +20,9 @@ $i = -1;
 $sql = "";
 while (($data = fgetcsv($temp, 0, "\t")) !== FALSE) {
   $i++;
-  if ($i === 0){
-    continue;
-  }
+  // if ($i === 0){
+  //   continue;
+  // }
 
   if ($data === ""){
     continue;
@@ -40,13 +40,14 @@ while (($data = fgetcsv($temp, 0, "\t")) !== FALSE) {
 //ファイルを作成
 $fp = fopen($sql_file, "w");
 
-$sql = mb_convert_encoding($sql, "SJIS", "AUTO");
+// $sql = mb_convert_encoding($sql, "SJIS", "AUTO");
 fwrite($fp, $sql);
 fclose($temp);
 
 
 function insert($name, $desc, $lat, $lng, $url){
   $sql = "insert into poi ( name, description, location, image) values (\" ". $name .  "\", \"" . $desc . "\", GeomFromText(\"POINT(". $lng . " " . $lat . ")\"), \"" . $url . "\");";
+  echo $sql;
   return $sql . "\n";
 }
 
